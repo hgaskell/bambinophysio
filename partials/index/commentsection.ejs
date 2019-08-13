@@ -1,0 +1,13 @@
+		<div class="container">
+			<h1>
+				Comments
+			</h1>
+			<p>
+			<% comments.forEach(function(comments){ %>
+				<strong><%= comments.author %></strong> - <%= comments.text %>
+			</p>
+			<% }); %>
+			<a href="/index/comment" id="buttonPost" class="btn btn-outline-success btn-sm mb-3"><small>Add Comment</small></a>
+		</div>
+	</div>
+</span>

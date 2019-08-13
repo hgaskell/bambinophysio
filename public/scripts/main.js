@@ -5,9 +5,9 @@
     	var showMoreBtn = document.getElementById("showMore");
   		var showLessBtn = document.getElementById("showLess");
     	
-		  dots.style.display = "none";
-		  showMoreBtn.style.display = "none";
-		  moreText.style.display = "block";
+		dots.style.display = "none";
+		showMoreBtn.style.display = "none";
+		moreText.style.display = "block";
 		showLessBtn.style.display = "block";
 	
 	}

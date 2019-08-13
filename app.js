@@ -14,35 +14,24 @@ mongoose.connect("mongodb+srv://hgaskell:C1ty0142.@cluster0-nmbe7.mongodb.net/ba
 });
 
 //SCHEMA SETUP
-var commentSchema = new mongoose.Schema({
+var blogOneSchema = new mongoose.Schema({
 	author: String,
 	text: String,
 });
-var blogSchema = new mongoose.Schema({
+var indexSchema = new mongoose.Schema({
 	author: String,
 	text: String,
 });
 
-var Comment = mongoose.model("comments", commentSchema);
-var Blog = mongoose.model("blog", blogSchema);
-
-		// Blog.create(
-		// {
-		// 	post: "",
-		// }, function(err, blog){
-		// 	if(err){
-		// 		console.log(err);
-		// 	} else {
-		// 		console.log(blog);
-		// 	}
-		// });
+var blogOne = mongoose.model("blogOne", blogOneSchema);
+var Index = mongoose.model("index", indexSchema);
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");
 app.use(express.static(__dirname + "/public"));
 
 app.get("/index", function(req, res){
-	Blog.find({}, function(err, comments){
+	Index.find({}, function(err, comments){
 		if(err){
 			console.log(err);
 		} else {
@@ -52,7 +41,7 @@ app.get("/index", function(req, res){
 });
 
 app.post("/index", function(req, res){
-	Blog.create(req.body.comment, function(err, comments){
+	Index.create(req.body.comment, function(err, comments){
 		if(err){
 			console.log(err);
 		} else {
@@ -65,13 +54,8 @@ app.get("/index/comment", function(req, res){
 	res.render("indexNew");
 });
 
-
-
-
-
-
 app.get("/blogpost", function(req, res){
-	Comment.find({}, function(err, comments){
+	blogOne.find({}, function(err, comments){
 		if(err){
 			console.log(err);
 		} else {
@@ -81,7 +65,7 @@ app.get("/blogpost", function(req, res){
 });
 
 app.post("/blogpost", function(req, res){
-	Comment.create(req.body.comment, function(err, comments){
+	blogOne.create(req.body.comment, function(err, comments){
 		if(err){
 			console.log(err);
 		} else {
@@ -90,8 +74,8 @@ app.post("/blogpost", function(req, res){
 	});
 });
 
-app.get("/blogpost/comment", function(req, res){
-	res.render("new");
+app.get("/blogpost/blogOne", function(req, res){
+	res.render("blogOneNew");
 });
 
 
