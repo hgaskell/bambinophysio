@@ -14,6 +14,10 @@ mongoose.connect("mongodb+srv://hgaskell:C1ty0142.@cluster0-nmbe7.mongodb.net/ba
 });
 
 //SCHEMA SETUP
+var blogTwoSchema = new mongoose.Schema({
+	author: String,
+	text: String,
+});
 var blogOneSchema = new mongoose.Schema({
 	author: String,
 	text: String,
@@ -23,6 +27,7 @@ var indexSchema = new mongoose.Schema({
 	text: String,
 });
 
+var blogTwo = mongoose.model("blogTwo", blogTwoSchema);
 var blogOne = mongoose.model("blogOne", blogOneSchema);
 var Index = mongoose.model("index", indexSchema);
 
@@ -30,6 +35,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");
 app.use(express.static(__dirname + "/public"));
 
+//INDEX ROUTES
 app.get("/index", function(req, res){
 	Index.find({}, function(err, comments){
 		if(err){
@@ -54,6 +60,7 @@ app.get("/index/comment", function(req, res){
 	res.render("indexNew");
 });
 
+//BLOG ONE ROUTES
 app.get("/blogpost", function(req, res){
 	blogOne.find({}, function(err, comments){
 		if(err){
@@ -77,6 +84,30 @@ app.post("/blogpost", function(req, res){
 app.get("/blogpost/blogOne", function(req, res){
 	res.render("blogOneNew");
 });
+
+//BLOG TWO ROUTES
+app.get("/blogposttwo", function(req, res){
+	blogTwo.find({}, function(err, comments){
+		if(err){
+			console.log(err);
+		} else {
+			res.render("blogTwo", {comments:comments});
+		}
+	});
+});
+app.post("/blogposttwo", function(req, res){
+	blogTwo.create(req.body.comment, function(err, comments){
+		if(err){
+			console.log(err);
+		} else {
+			res.redirect("/blogposttwo");
+		}
+	});
+});
+app.get("/blogposttwo/blogTwo", function(req, res){
+	res.render("blogTwoNew");
+});
+
 
 
 
